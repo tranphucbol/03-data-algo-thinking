@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="hash-table:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/hash_table_jar</output-path>
+    <root id="archive" name="hash-table.jar">
+      <element id="module-output" name="hash-table" />
+    </root>
+  </artifact>
+</component>
