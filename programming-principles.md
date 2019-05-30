@@ -41,5 +41,4 @@ Nội dung nguyên tắc này là:
 
 ## Tham khảo
 
-[SOLID (1)](https://viblo.asia/p/solid-la-gi-ap-dung-cac-nguyen-ly-solid-trong-thiet-ke-maGK7WELKj2)
-[SOLID (2)]
+- [SOLID](https://viblo.asia/p/solid-la-gi-ap-dung-cac-nguyen-ly-solid-trong-thiet-ke-maGK7WELKj2)
