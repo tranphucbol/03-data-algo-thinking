@@ -7,6 +7,10 @@
     - [Đánh giá Bloom Filter](#%C4%91%C3%A1nh-gi%C3%A1-bloom-filter)
   - [Cuckoo Filters](#cuckoo-filters)
     - [Cách hoạt động Cuckoo Filters](#c%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-cuckoo-filters)
+  - [Trie](#trie)
+    - [Tổng quát về Trie](#t%E1%BB%95ng-qu%C3%A1t-v%E1%BB%81-trie)
+    - [Đánh giá Trie](#%C4%91%C3%A1nh-gi%C3%A1-trie)
+    - [Ứng dụng của Trie](#%E1%BB%A9ng-d%E1%BB%A5ng-c%E1%BB%A7a-trie)
   - [Tham khảo](#tham-kh%E1%BA%A3o)
 
 ## Bloom Filters
@@ -66,6 +70,34 @@ Vì h<sub>1</sub>(x) và h<sub>2</sub>(x) có thể suy ra được lẫn nhau b
 *j* = *i* ⊕ hash(f)
 
 False positive xảy ra khi một mục nhập khác thêm fingerprint vào một trong hai bucket được kiểm tra.
+
+## Trie
+
+<div align="center">
+  <img src="images/Trie.png" alt=""/>
+</div>
+
+### Tổng quát về Trie
+
+`Trie` là một cấu trúc dữ liệu sử dụng cây có thứ tự, dùng đẻ lưu trữ một mảng liên kết của các xâu ký tự. Mỗi nút liên kết với một xâu ký tự sao cho các xâu ký tự của tất cả các nút con của một nút đều có chung một tiền tố, chính là xâu ký tự của nút đó. Nút gốc tương ứng với xâu ký tự rỗng.
+
+Node của `Trie` thường được xây dựng bằng một class/struct chứa các thông tin sau:
+
+- Label: chứa ký tự mà node đang giữ
+- Flag: Đánh dấu sự kết thúc của chuỗi
+- Link: là kết nối với các node bên dưới.
+
+### Đánh giá Trie
+
+- Xây dựng: worst case cho thời gian xây dựng là O(s) với s là tổng độ dài của tất cả các chuỗi khi các chuỗi hoàn toàn khác nhau về kí tự. Nhưng trong thực tế việc này sẽ ra khá tập. Trong các trường hợp, càng nhiều chuỗi giống nhau, nó sẽ thể hiện rõ ưu thế về bộ nhớ.
+- Tìm kiếm: O(s) với s là chiều dài của chuỗi. Chỉ việc đi qua từng node theo chiều dài của chuỗi.
+- Không gian: O(s) với s là tổng độ dài tất cả các chuỗi pattern.
+
+### Ứng dụng của Trie
+
+Trie thường được sử dụng khi ta có một tập hợp lớn các chuỗi ít cso sự thay đổi và muốn tìm kiếm nhanh trong các chuỗi đó theo prefix hoặc nguyên chuỗi.
+
+Khi so sánh với Hash thì Trie  có thể có tốc độ tìm kiếm không bằng Hash nhưng bù lại nó sẽ yêu cầu ít bộ nhớ hơn cho việc lưu trữ.
 
 ## Tham khảo
 

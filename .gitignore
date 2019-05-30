@@ -1,11 +1,13 @@
-hash-table/out
+**/out
+
+**/target
 
 # User-specific stuff
-hash-table/.idea/**/workspace.xml
-hash-table/.idea/**/tasks.xml
-hash-table/.idea/**/usage.statistics.xml
-hash-table/.idea/**/dictionaries
-hash-table/.idea/**/shelf
+**/.idea/**/workspace.xml
+**/.idea/**/tasks.xml
+**/.idea/**/usage.statistics.xml
+**/.idea/**/dictionaries
+**/.idea/**/shelf
 
 # Generated files
-hash-table/.idea/**/contentModel.xml
+**/.idea/**/contentModel.xml
