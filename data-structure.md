@@ -1,6 +1,6 @@
-# Cấu trúc dữ liệu
+# CẤU TRÚC DỮ LIỆU
 
-- [Cấu trúc dữ liệu](#c%E1%BA%A5u-tr%C3%BAc-d%E1%BB%AF-li%E1%BB%87u)
+- [CẤU TRÚC DỮ LIỆU](#c%E1%BA%A5u-tr%C3%BAc-d%E1%BB%AF-li%E1%BB%87u)
   - [Bloom Filters](#bloom-filters)
     - [Cách hoạt động Bloom Filters](#c%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-bloom-filters)
     - [Hash function trong Bloom Filter](#hash-function-trong-bloom-filter)
