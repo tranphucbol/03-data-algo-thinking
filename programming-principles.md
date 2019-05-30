@@ -1,4 +1,4 @@
-# NGUYÊN TẮC LẬP TRÌNH 
+# NGUYÊN TẮC LẬP TRÌNH
 
 ## SOLID
 
@@ -6,7 +6,7 @@
     <img src="images/solid.png">
 </div>
 
-SOLID là viết tắt của 5 chữ cái đầu trong nguyên tấc thiết kế hướng đối tượng. Được đưa ra bởi Bob Martin và Michael Feathers. 5 nguyên tắc đó bao gồm:
+**SOLID** là viết tắt của 5 chữ cái đầu trong nguyên tấc thiết kế hướng đối tượng. Được đưa ra bởi Bob Martin và Michael Feathers. 5 nguyên tắc đó bao gồm:
 
 - **S**ingle responsibility principle
 - **O**pen/Closed principle
