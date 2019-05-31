@@ -1,17 +1,24 @@
 # CẤU TRÚC DỮ LIỆU
 
 - [CẤU TRÚC DỮ LIỆU](#c%E1%BA%A5u-tr%C3%BAc-d%E1%BB%AF-li%E1%BB%87u)
+  - [Tính chất của Probabilistic data structure](#t%C3%ADnh-ch%E1%BA%A5t-c%E1%BB%A7a-probabilistic-data-structure)
   - [Bloom Filters](#bloom-filters)
     - [Cách hoạt động Bloom Filters](#c%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-bloom-filters)
     - [Hash function trong Bloom Filter](#hash-function-trong-bloom-filter)
     - [Đánh giá Bloom Filter](#%C4%91%C3%A1nh-gi%C3%A1-bloom-filter)
   - [Cuckoo Filters](#cuckoo-filters)
     - [Cách hoạt động Cuckoo Filters](#c%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-cuckoo-filters)
+  - [HyperLogLog](#hyperloglog)
+    - [Cách hoạt động của HyperLogLog](#c%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-c%E1%BB%A7a-hyperloglog)
   - [Trie](#trie)
     - [Tổng quát về Trie](#t%E1%BB%95ng-qu%C3%A1t-v%E1%BB%81-trie)
     - [Đánh giá Trie](#%C4%91%C3%A1nh-gi%C3%A1-trie)
     - [Ứng dụng của Trie](#%E1%BB%A9ng-d%E1%BB%A5ng-c%E1%BB%A7a-trie)
   - [Tham khảo](#tham-kh%E1%BA%A3o)
+
+## Tính chất của Probabilistic data structure
+
+Cấu trúc dữ liệu xác xuất là một nhóm cấu trúc dữ liệu cực kỳ hữu ích cho các ứng dụng truyền dữ liệu và big data.Các cấu trúc dữ liệu này sử dụng các hàm hash để ngẫu nhiên hóa và biểu diễn gọn gàng một tập hợp các item. Collision bị bỏ quia nhưng lỗi có thể được soát tốt dưới ngưỡng nhất định. so sánh với các phương phát error-free, các thuật toán này sử dụng ít bộ nhớ hơn và có thời gian truy vấn không đổi. Chúng thường hỗ trợ các phép union, intersection.
 
 ## Bloom Filters
 
@@ -67,9 +74,15 @@ Sử dụng các tính chất của `xor (⊕)`, ta nhận thấy h<sub>1</sub> 
 
 Vì h<sub>1</sub>(x) và h<sub>2</sub>(x) có thể suy ra được lẫn nhau bằng việc sử dụng chung một công thức (5), ta có được một công thức chung để tính vị trí bucket *j* tiềm năng còn lại từ vị trí bucket *i* có fingerprint f chưa trong bucket đó:
 
-*j* = *i* ⊕ hash(f)
+*j* = *i* ⊕ hash(f)with an accuracy of 2% using only 1.5 KB of memor
 
 False positive xảy ra khi một mục nhập khác thêm fingerprint vào một trong hai bucket được kiểm tra.
+
+## HyperLogLog
+
+### Cách hoạt động của HyperLogLog
+
+HyperLogLog là một thuật toán streaming được dùng cho dựa đoán số phần tử duy nhất trong một data sets khổng lồ. Bộ đếm HyperLogLog có thể dếm một tỷ items với độ chính xác là 2% chỉ dùng 1.5 KB bộ nhớ. Nó dựa trên quan sát mẫu bit cho một luồng các số được phân phối ngẫu nhiên, nếu có một số x với số lượng bit 0 đầu tối đa là k, cardinality của stream rất có thể bằng 2<sup>k</sup>. Điều này có nghĩa là trong một dòng các số nhị phân ngẫu nhiên, xác xuất để số 1 bắt đầu là ~ 50% và "01" là ~25%. Do đó, một quan sát nhóm "01" trong stream cho thấy rằng cardinality có thể là 2<sup>2</sup> = 4
 
 ## Trie
 

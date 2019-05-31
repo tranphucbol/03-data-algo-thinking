@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trie {
+public class Trie implements Dictionary {
     private TrieNode root;
     private boolean done = false;
 
@@ -32,18 +32,6 @@ public class Trie {
         next.flag = false;
     }
 
-    public boolean search(String word) {
-        char[] wc = word.toCharArray();
-
-        TrieNode next = root;
-        for (int i = 0; i < wc.length; i++) {
-            if (next.links[wc[i] - 32] == null) {
-                return false;
-            }
-            next = next.links[wc[i] - 32];
-        }
-        return true;
-    }
 
     public List<String> prefix(String word) {
         char[] wc = word.toCharArray();
@@ -85,7 +73,7 @@ public class Trie {
                 String line;
                 while ((line = br.readLine()) != null) {
                     line = line.replaceAll("<Blog>|</Blog>|<post>|</post>|<date>|</date>|&", "").trim();
-                    String[] words = line.split(" *[.,\\-:;?()\"\n\t\r! ]+ *| +");
+                    String[] words = line.split(" *[.,\\-:;?(){}\\[\\]\"\n\t\r! ]+ *| +");
                     for (String w : words) {
                         this.add(w);
                     }
@@ -175,5 +163,18 @@ public class Trie {
                 System.out.println("\nDone!");
             }
         }).start();
+    }
+
+    public boolean contains(String word) {
+        char[] wc = word.toCharArray();
+
+        TrieNode next = root;
+        for (int i = 0; i < wc.length; i++) {
+            if (next.links[wc[i] - 32] == null) {
+                return false;
+            }
+            next = next.links[wc[i] - 32];
+        }
+        return true;
     }
 }
