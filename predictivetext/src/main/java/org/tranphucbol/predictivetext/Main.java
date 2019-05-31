@@ -8,35 +8,31 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
+import java.nio.Buffer;
+import java.sql.SQLOutput;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        try {
 
-            File fXmlFile = new File("test.xml");
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+        Trie trie = new Trie();
+        File folder = new File("data");
+        trie.addFromFile(folder);
 
-            //optional, but recommended
-            //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-            doc.getDocumentElement().normalize();
+        trie.writeTrie();
+//        trie.readFile();
 
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+        Scanner scanner = new Scanner(System.in);
 
-            NodeList nList = doc.getElementsByTagName("post");
-
-            System.out.println("----------------------------");
-
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                String line = nNode.getFirstChild().getNodeValue().trim();
-                String[] words = line.split(" *\\? *| *[\\.,\"-:;] *|\n| +");
-                for(String w : words)
-                    System.out.println(w);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        String keyword;
+        while(!(keyword = scanner.nextLine()).equals("exit")) {
+            List<String> results = trie.prefix(keyword);
+            for(String r : results)
+                System.out.println(r);
         }
+
     }
+
+
 }
