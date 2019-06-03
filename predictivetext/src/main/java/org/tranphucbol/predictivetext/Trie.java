@@ -2,6 +2,7 @@ package org.tranphucbol.predictivetext;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Trie implements Dictionary {
@@ -34,9 +35,13 @@ public class Trie implements Dictionary {
 
 
     public List<String> prefix(String word) {
-        char[] wc = word.toCharArray();
-
         List<String> results = new ArrayList<String>();
+
+        if(word == null || word.equals("")) {
+            return Collections.EMPTY_LIST;
+        }
+
+        char[] wc = word.toCharArray();
 
         TrieNode next = root;
 
