@@ -97,7 +97,7 @@ Cách thực hiện thuật toán:
 - Tính $`HM = \frac{32}{\Sigma 2^{-k_i}}`$
 - Tính $`E = 32 \alpha \cdot HM`$
 - Nếu $`E < 2.5 \cdot 32`$ và số bucket có số zero V > 0: return $`-32 \cdot \log(V/32)`$
-- Ngược lại nếu $`E > 2^{32}/30$ : return $-2^{32}\log(1 - E/2^{32})`$
+- Ngược lại nếu $`E > 2^{32}/30`$ : return $`-2^{32}\log(1 - E/2^{32})`$
 - Ngược lại: return E
 
 ## Trie
