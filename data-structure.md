@@ -135,3 +135,5 @@ Khi so sánh với Hash thì Trie  có thể có tốc độ tìm kiếm không 
 - [Cuckoo filter (1)](https://bdupras.github.io/filter-tutorial/)
 - [Cukcoo filter (2)](https://hoanglehaithanh.com/bo-loc-cuckoo/#more-4382)
 - [Count-Min Sketches](https://towardsdatascience.com/big-data-with-sketchy-structures-part-1-the-count-min-sketch-b73fb3a33e2a)
+- [HyperLogLog (1)](http://www.moderndescartes.com/essays/hyperloglog/?fbclid=IwAR22o88cXhVFwrHiG_QIeb7M2OPSPiKp7MNhL17HamIDMVsoFfeJbzg0JiA)
+- [HyperLogLog (2)](https://towardsdatascience.com/big-data-with-sketchy-structures-part-2-hyperloglog-and-bloom-filters-73b1c4a2e6ad)
