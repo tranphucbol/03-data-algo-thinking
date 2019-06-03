@@ -7,9 +7,8 @@
     - [Hash function trong Bloom Filter](#hash-function-trong-bloom-filter)
     - [Đánh giá Bloom Filter](#%C4%91%C3%A1nh-gi%C3%A1-bloom-filter)
   - [Cuckoo Filters](#cuckoo-filters)
-    - [Cách hoạt động Cuckoo Filters](#c%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-cuckoo-filters)
+  - [Count Min Sketch](#count-min-sketch)
   - [HyperLogLog](#hyperloglog)
-    - [Cách hoạt động của HyperLogLog](#c%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-c%E1%BB%A7a-hyperloglog)
   - [Trie](#trie)
     - [Tổng quát về Trie](#t%E1%BB%95ng-qu%C3%A1t-v%E1%BB%81-trie)
     - [Đánh giá Trie](#%C4%91%C3%A1nh-gi%C3%A1-trie)
@@ -51,8 +50,6 @@ Việc false positive sẽ càng tăng nếu kích thước *m* (độ dài bita
 
 ## Cuckoo Filters
 
-### Cách hoạt động Cuckoo Filters
-
 `Cuckoo Filters` hoạt động bằng cách hasing một mục nhập với một hàm hash và  chền f-bit fingerprint cảu mục nhập vào một vị trí mở trong một trong hai bucket thay thế. Khi cả hai buckets đầy, filter đệ  quy các mục hiện có vào các thùng thay thế của chúng cho đến khi space được tìm thấy hoặc các nỗ lực đã hết. Tra cứu lặp lại hash function và kiểm tra cả hai bucket cho fingerprint. Khi không tìm thấy fingerprint phù hợp, mục nhập chắc chắn không có trong bộ lọc. Khi tìm thấy fingerprint phù hợp trong một trong hai bucket, mục nhập có thể nằm trong bộ lọc.
 
 Fingerprint là một chuỗi bit có kích thước cố định sinh ra từ mỗi phần tử đầu vào bằng cách băm chính phần tử nhập vào.
@@ -78,9 +75,17 @@ Vì h<sub>1</sub>(x) và h<sub>2</sub>(x) có thể suy ra được lẫn nhau b
 
 False positive xảy ra khi một mục nhập khác thêm fingerprint vào một trong hai bucket được kiểm tra.
 
-## HyperLogLog
+## Count Min Sketch
 
-### Cách hoạt động của HyperLogLog
+Cấu trúc bên trong của Count-Min Sketch là một bảng, tương tựng như một Hash Table. Tuy nhiên, trong khiu Hash Table dùng một hàm hash, Count Min Sketches dùng nhiều hàm hash, cho mỗi cột. Ban đầu, mỗi ô trong Count-Min Sketches được khởi tạo là 0. Khi có một event xảy ra, ID của event sẽ được hash qua mỗi cột. Mỗi hàm hash sẽ cho ra giá trị là một dòng trong bảng, và tăng ô tại (dòng, cột) đó lên một. Khi truy vấn số lượng, ta sẽ hash để lấy ra vị trí của 3 ô và sẽ lấy giá trị nhỏ nhất trong 3 ô.
+
+<div align="center">
+  <img src="images/count-min-sketches.png">
+</div>
+
+Count-Min Sketches không cần cấp thêm vùng nhớ mới khi thêm một event vào set. Chúng ta chỉ cần tăng biến đếm, không gian lưu trữ là không đổi. Count-Min Sketches có thể thêm vào song song. Ta có thể thêm nhiều events vào đông thời, nếu như 2 event đó không bị hash vào chung một dòng. Tuy nhiên, nó không hỗ trợ việc giảm trong bảng. Count Min Sketches không dùng cho những dữ liệu tăng giảm thường xuyên. Count-Min Sketches sẽ có sai lệch, nhưng nó vẫn ổn nếu như dùng đánh giá xem cái nào phổ biến hơn.
+
+## HyperLogLog
 
 HyperLogLog là một thuật toán streaming được dùng cho dựa đoán số phần tử duy nhất trong một data sets khổng lồ. Bộ đếm HyperLogLog có thể dếm một tỷ items với độ chính xác là 2% chỉ dùng 1.5 KB bộ nhớ. Nó dựa trên quan sát mẫu bit cho một luồng các số được phân phối ngẫu nhiên, nếu có một số x với số lượng bit 0 đầu tối đa là k, cardinality của stream rất có thể bằng 2<sup>k</sup>. Điều này có nghĩa là trong một dòng các số nhị phân ngẫu nhiên, xác xuất để số 1 bắt đầu là ~ 50% và "01" là ~25%. Do đó, một quan sát nhóm "01" trong stream cho thấy rằng cardinality có thể là 2<sup>2</sup> = 4
 
@@ -129,3 +134,4 @@ Khi so sánh với Hash thì Trie  có thể có tốc độ tìm kiếm không 
 - [Bloom filter (2)](https://vietnamlab.vn/2016/09/28/gioi-thieu-ve-bloom-filter/)
 - [Cuckoo filter (1)](https://bdupras.github.io/filter-tutorial/)
 - [Cukcoo filter (2)](https://hoanglehaithanh.com/bo-loc-cuckoo/#more-4382)
+- [Count-Min Sketches](https://towardsdatascience.com/big-data-with-sketchy-structures-part-1-the-count-min-sketch-b73fb3a33e2a)
