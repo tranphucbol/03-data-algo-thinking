@@ -84,6 +84,17 @@ False positive xảy ra khi một mục nhập khác thêm fingerprint vào mộ
 
 HyperLogLog là một thuật toán streaming được dùng cho dựa đoán số phần tử duy nhất trong một data sets khổng lồ. Bộ đếm HyperLogLog có thể dếm một tỷ items với độ chính xác là 2% chỉ dùng 1.5 KB bộ nhớ. Nó dựa trên quan sát mẫu bit cho một luồng các số được phân phối ngẫu nhiên, nếu có một số x với số lượng bit 0 đầu tối đa là k, cardinality của stream rất có thể bằng 2<sup>k</sup>. Điều này có nghĩa là trong một dòng các số nhị phân ngẫu nhiên, xác xuất để số 1 bắt đầu là ~ 50% và "01" là ~25%. Do đó, một quan sát nhóm "01" trong stream cho thấy rằng cardinality có thể là 2<sup>2</sup> = 4
 
+Cách thực hiện thuật toán:
+
+- Hash mỗi item
+- Dùng 5 bit đầu của hàm hash để xác định sử dụng bucket nào
+- Dùng 27 bit còn lại của hàm hash để update số lượng max-leading-zeros cho bucket đó
+- Tính $HM = \frac{32}{\Sigma 2^{-k_i}}$
+- Tính $E = 32 \alpha \cdot HM$
+- Nếu $E < 2.5 \cdot 32$ và số bucket có số zero V > 0: return $-32 \cdot \log(V/32)$
+- Ngược lại nếu $E > 2^{32}/30$ : return $-2^{32}\log(1 - E/2^{32})$
+- Ngược lại: return E
+
 ## Trie
 
 <div align="center">
