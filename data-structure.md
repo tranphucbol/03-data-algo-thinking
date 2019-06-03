@@ -103,7 +103,7 @@ Cách thực hiện thuật toán:
 ## Trie
 
 <div align="center">
-  <img src="images/Trie.png" alt=""/>
+  <img width="400px" src="images/Trie.png" alt=""/>
 </div>
 
 ### Tổng quát về Trie
