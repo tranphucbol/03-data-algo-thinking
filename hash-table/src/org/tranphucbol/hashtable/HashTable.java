@@ -47,11 +47,11 @@ public class HashTable<K, V> {
             return -1;
         }
 
-        byte [] cKeys = bos.toByteArray();
+         byte[] cKeys = bos.toByteArray();
         int len = cKeys.length;
 
-        for (int i = 0; i < len; i++) {
-            hash += (long)Math.pow(a, len - (i+1)) * cKeys[i];
+            for (int i = 0; i < len; i++) {
+            hash += Math.pow(a, len - (i+1)) * (0x000000FF & (int)cKeys[i]);
             hash = hash % size;
         }
 
@@ -127,7 +127,7 @@ public class HashTable<K, V> {
     }
 
     private int doubleHashing(K key, int attempt) {
-        int hash_a = _hash(key, 123);
+        int hash_a = _hash(key, 7);
         int hash_b = _hash(key, 11);
         return (hash_a + (attempt * (hash_b + 1))) % size;
     }

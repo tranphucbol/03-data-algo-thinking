@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="predictivetext:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/predictivetext_jar</output-path>
+    <root id="archive" name="predictivetext.jar">
+      <element id="module-output" name="predictivetext" />
+    </root>
+  </artifact>
+</component>

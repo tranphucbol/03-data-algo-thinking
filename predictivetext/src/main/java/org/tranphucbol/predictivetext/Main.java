@@ -10,7 +10,7 @@ public class Main {
 
 //        long start, end, total;
 //        Trie trie = new Trie();
-//        File folder = new File("data");
+//        File folder = new File("/home/cpu11413/Documents/blogs");
 //        trie.addFromFile(folder);
 //        trie.writeTrie();
 

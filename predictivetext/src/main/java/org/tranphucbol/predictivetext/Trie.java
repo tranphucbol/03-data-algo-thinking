@@ -118,6 +118,7 @@ public class Trie implements Dictionary {
             processBar("Reading file ");
             DataInputStream in = new DataInputStream(new FileInputStream("Trie"));
             root = readTrieNode(in);
+            in.close();
             done = true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
