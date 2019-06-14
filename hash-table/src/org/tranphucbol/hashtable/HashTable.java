@@ -47,15 +47,16 @@ public class HashTable<K, V> {
             return -1;
         }
 
-         byte[] cKeys = bos.toByteArray();
+        byte[] cKeys = bos.toByteArray();
         int len = cKeys.length;
 
-            for (int i = 0; i < len; i++) {
-            hash += Math.pow(a, len - (i+1)) * (0x000000FF & (int)cKeys[i]);
+        for (int i = 0; i < len; i++) {
+            //Because Java don't have unsigned data type, Use 0xFF to cast to unsigned char
+            hash += Math.pow(a, len - (i + 1)) * (0x000000FF & (int) cKeys[i]);
             hash = hash % size;
         }
 
-        return (int)hash;
+        return (int) hash;
     }
 
     private int hash(K key, int attempt) {
@@ -76,13 +77,17 @@ public class HashTable<K, V> {
 
     public void insert(K key, V value) {
         int load = this.count * 100 / this.size;
-        if(load > 70) {
+        if (load > 70) {
             _resizeUp();
         }
         int index = hash(key, 0);
         HashTableItem item = items[index];
         int i = 1;
-        while(item != null && item != HT_DELETE_ITEM && i < size) {
+        while (item != null && item != HT_DELETE_ITEM && i < size) {
+            if(item.key.equals(key)) {
+                item.value = value;
+                return;
+            }
             index = hash(key, i);
             item = items[index];
             i++;
@@ -95,9 +100,9 @@ public class HashTable<K, V> {
         int index = hash(key, 0);
         HashTableItem item = items[index];
         int i = 1;
-        while(item != null && i < size) {
-            if(key.equals(item.key)) {
-                return (V)item.value;
+        while (item != null && i < size) {
+            if (key.equals(item.key)) {
+                return (V) item.value;
             }
             index = hash(key, i);
             item = items[index];
@@ -106,16 +111,16 @@ public class HashTable<K, V> {
         return null;
     }
 
-    public void delete (K key) {
+    public void delete(K key) {
         int load = this.count * 100 / this.size;
-        if(load < 10) {
+        if (load < 10) {
             _resizeDown();
         }
         int index = hash(key, 0);
         HashTableItem item = items[index];
         int i = 1;
-        while(item != null && item != HT_DELETE_ITEM && i < size) {
-            if(item.key.equals(key)) {
+        while (item != null && item != HT_DELETE_ITEM && i < size) {
+            if (item.key.equals(key)) {
                 items[index] = HT_DELETE_ITEM;
                 count--;
                 break;
@@ -152,11 +157,11 @@ public class HashTable<K, V> {
     -1 undefine
      */
     private int isPrime(int x) {
-        if(x < 2) return -1;
-        if(x < 4) return 1;
-        if(x % 2 == 0) return 0;
-        for (int i = 3; i <= Math.floor(Math.sqrt((double)x)); i += 2) {
-            if(x % i == 0) {
+        if (x < 2) return -1;
+        if (x < 4) return 1;
+        if (x % 2 == 0) return 0;
+        for (int i = 3; i <= Math.floor(Math.sqrt((double) x)); i += 2) {
+            if (x % i == 0) {
                 return 0;
             }
         }
@@ -164,18 +169,18 @@ public class HashTable<K, V> {
     }
 
     private int nextPrime(int x) {
-        while(isPrime(x) != 1) {
+        while (isPrime(x) != 1) {
             x++;
         }
         return x;
     }
 
     public void resize(int size) {
-        if(size < HT_INITIAL_BASE_SIZE || size == this.size) return;
+        if (size < HT_INITIAL_BASE_SIZE || size == this.size) return;
 
         HashTable<K, V> newHt = new HashTable<>(size, this.collision);
-        for(int i = 0; i < this.size; i++) {
-            if(this.items[i] != null && this.items[i] != HT_DELETE_ITEM) {
+        for (int i = 0; i < this.size; i++) {
+            if (this.items[i] != null && this.items[i] != HT_DELETE_ITEM) {
                 newHt.insert(this.items[i].key, this.items[i].value);
             }
         }

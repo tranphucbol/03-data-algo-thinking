@@ -123,3 +123,36 @@ public class Car {
 }
 
 ```
+
+## Factory Method
+
+<div align="center">
+    <img src="images/factory-method.png">
+</div>
+
+`Factory Method` pattern là một creational pattern mà sử dụng các factory method để giải quyết vấn đề tạo đối tượng mà không phỉa chỉ định class chính xác của đối tượng sẽ được tạo. Điều này được thực hiện bằng các tạo các đối tượng bằng cách gọi một factory method. Hoặc được chỉ địh một interface và implemented bởi class con, hoặc implemented trong một class cha và được ghi đè tùy ý bởi các lớp dẫn xuất thay vì gọi một constructor.
+
+Dùng `Factory Method` pattern khi:
+
+- Một class không thể lường trước lớp đối tượng mà nó phải tạo
+- Một class muốn các lớp con của nó chỉ định các đối tượng mà nó tạo ra
+
+## Strategy
+
+<div align="center">
+    <img src="images/stragegy.png">
+</div>
+
+`Strategy` pattern là một behavioral pattern. `Strategy` pattern được sử dụng khi ta có nhiều thuật toán cho một task nhất định và client quyết định thực hiện sẽ được sử dụng trong runtime.
+
+Dùng `Strategy` pattern khi:
+
+- Nhiều class liên quan chỉ khác nhau trong behavior của nó. Strategies cung cấp một để cấu hình một class hoặc một trong nhiều behavior.
+- Bạn cần nhiều biến thể khác nhau của một thuật toán.
+- Một class định nghĩa nhiều behavior và chúng xuất hiện dưới dạng câu điều kiện trong các operation của nó. Thay vì sử dụng nhiều câu điều kiện, chuyển các nhánh có điều kiện liên quan vào một Strategy class của riêng nó.
+
+## Reference
+
+- [Factory Method](https://en.wikipedia.org/wiki/Factory_method_pattern)
+- [Stragety](https://www.journaldev.com/1754/strategy-design-pattern-in-java-example-tutorial)
+
