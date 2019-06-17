@@ -20,43 +20,53 @@ public class SlaServiceTest {
                         //In day, morning
                         LocalDateTime.of(2019, 4, 30, 10, 0),
                         LocalDateTime.of(2019, 4, 30, 11, 0),
-                        Duration.ofSeconds(3600) // 1h
+                        Duration.ofMinutes(60) // 1h
                 },
                 {
                         //In day, afternoon
                         LocalDateTime.of(2019, 4, 30, 13, 30),
                         LocalDateTime.of(2019, 4, 30, 14, 0),
-                        Duration.ofSeconds(3600) // 1h
+                        Duration.ofMinutes(30) // 30m
                 },
                 {
                         //In day, morning to afternoon
                         LocalDateTime.of(2019, 4, 30, 9, 30),
                         LocalDateTime.of(2019, 4, 30, 15, 30),
-                        Duration.ofSeconds(3600) // 1h
+                        Duration.ofMinutes(4 * 60 + 30) // 4h30m
                 },
                 {
                         //Different day, in morning
                         LocalDateTime.of(2019, 4, 30, 10, 30),
                         LocalDateTime.of(2019, 5, 1, 9, 30),
-                        Duration.ofSeconds(3600) // 1h
+                        Duration.ofMinutes(7 * 60) // 7h
                 },
                 {
                         //Different day, in afternoon
                         LocalDateTime.of(2019, 4, 30, 15, 30),
                         LocalDateTime.of(2019, 5, 1, 13, 30),
-                        Duration.ofSeconds(3600) // 1h
+                        Duration.ofMinutes(6 * 60) // 6h
                 },
                 {
                         //Different day, in afternoon -> morning
                         LocalDateTime.of(2019, 4, 30, 15, 30),
                         LocalDateTime.of(2019, 5, 1, 8, 30),
-                        Duration.ofSeconds(3600) // 1h
+                        Duration.ofMinutes(2 * 60 + 30) // 2h30m
                 },
                 {
-                        //Different day, in morning -> afternoon, false
+                        //Different day, in morning -> afternoon
                         LocalDateTime.of(2019, 4, 30, 8, 30),
                         LocalDateTime.of(2019, 5, 1, 15, 30),
-                        Duration.ofSeconds(3600) // 1h
+                        Duration.ofMinutes(13 * 60 + 30) // 13h30m
+                },
+                {
+                        LocalDateTime.of(2019, 4, 30, 8, 30),
+                        LocalDateTime.of(2019, 5, 3, 15, 30),
+                        Duration.ofMinutes(13 * 60 + 30 + 2 * 8 * 60) // 13h30m
+                },
+                {
+                        LocalDateTime.of(2019, 5, 5, 8, 30),
+                        LocalDateTime.of(2019, 5, 6, 15, 30),
+                        Duration.ofMinutes(5 * 60 +  30) // 13h30m
                 },
         };
     }
@@ -72,10 +82,10 @@ public class SlaServiceTest {
     public void calculate(LocalDateTime start, LocalDateTime end, Duration expectedResult) {
         // WHEN
         Duration duration = slaService.calculate(start, end);
-        System.out.println(duration.toMinutes());
+//        System.out.println(duration.toMinutes());
 
         // THEN
-//        MatcherAssert.assertThat(duration, Is.is(expectedResult));
-        MatcherAssert.assertThat(duration, IsLessThan.lessThan(Duration.ofHours(8)));
+        MatcherAssert.assertThat(duration, Is.is(expectedResult));
+//        MatcherAssert.assertThat(duration, IsLessThan.lessThan(Duration.ofHours(8)));
     }
 }
