@@ -1,6 +1,7 @@
 package com.zalopay;
 
 import java.time.*;
+import java.util.Random;
 
 /**
  * Created by thinhda.
@@ -80,6 +81,7 @@ public class SlaServiceImpl implements SlaService {
                     .minus(gap_1.multipliedBy(days - 1 + n))
                     .minus(gap_2.multipliedBy(days))
                     .minus(gap_3.multipliedBy(weekends));
+
         }
 
         return duration;
