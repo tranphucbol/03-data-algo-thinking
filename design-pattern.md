@@ -151,8 +151,45 @@ Dùng `Strategy` pattern khi:
 - Bạn cần nhiều biến thể khác nhau của một thuật toán.
 - Một class định nghĩa nhiều behavior và chúng xuất hiện dưới dạng câu điều kiện trong các operation của nó. Thay vì sử dụng nhiều câu điều kiện, chuyển các nhánh có điều kiện liên quan vào một Strategy class của riêng nó.
 
+## Dependency Injection
+
+`Dependency Injection` là một design pattern cho phép xóa bỏ sự phụ thuộc giữa class cấp cao và class cấp thấp, làm cho ứng dụng ít bị kết dính, dễ dàng mở rộng và maintain hơn.
+
+Lấy một ví dụ theo một trang đã kham khảo:
+
+Nguồn: [https://stackjava.com/design-pattern/dependency-injection-di-la-gi.html](https://stackjava.com/design-pattern/dependency-injection-di-la-gi.html)
+
+Mình có 1 ứng dụng gọi tới object của class MySQLDAO(class MySQLDAO chuyên thực hiện truy vấn với cơ sở dữ liệu MySQL của ứng dụng)
+
+Bây giờ bạn muốn truy vấn tới cơ sở dữ liệu postgre. Bạn phải xóa khai báo MySQLDAO trong ứng dụng và thay bằng PostgreDAO, sau đó muốn dùng lại MySQLDAO bạn lại làm ngược lại… rõ ràng code sẽ phải sửa lại và test nhiều lần.
+
+Giải pháp dùng if-else kiểm tra điều kiện sẽ dùng đối tượng DAO nào… nhưng sau đấy có thêm một DAO khác ví dụ như MSSQLDAO chẳng hạn… phức tạp hơn nhiều phải không.
+
+Dependency Inject chính là để giải quyết cho trường hợp như thế này.
+
+Trong ví dụ trên, tạo ra một interface AbstractDAP vào cho các class DAO kia implements AbstractDAO.
+
+### Các phương pháp thực hiện Dependency Injection
+
+1. **Construcotr Injection:** Các dependency sẽ được container truyền vào 1 class thông qua constructor của class đó.
+2. **Setter Injection:** Các dependency sẽ được truyền vào 1 class thông qua các hàm Setter.
+3. **Interface Injection:** Class cần inject sẽ implement 1 interface. Interface này được chứa 1 hàm tên `Inject`. Container sẽ injection dependency vào 1 class thông qua việc gọi hàm `Inject` của interface đó.
+
+### Ưu điểm Dependency Injection
+
+- Giảm sự kết dính giữa các module
+- Code dễ bảo trì, dễ thay thế module
+- Rất dễ test và viết Unit Test
+- Dễ dàng thấy quan hệ giữa các module (Vì các dependency đều được inject vào contructor)
+
+### Nhược điểm Dependency Injection
+
+- Khái niệm DI hơi khó hiueer với người mới.
+- Khó debug vì không biết implements nào của interface được gọi đến
+- Các object được khởi tạo đầu làm giảm performance
+- Làm tăng độ phức tạo của code.
+
 ## Reference
 
 - [Factory Method](https://en.wikipedia.org/wiki/Factory_method_pattern)
 - [Stragety](https://www.journaldev.com/1754/strategy-design-pattern-in-java-example-tutorial)
-

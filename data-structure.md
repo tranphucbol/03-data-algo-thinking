@@ -1,19 +1,19 @@
 # CẤU TRÚC DỮ LIỆU
 
-- [CẤU TRÚC DỮ LIỆU](#c%E1%BA%A5u-tr%C3%BAc-d%E1%BB%AF-li%E1%BB%87u)
-  - [Tính chất của Probabilistic data structure](#t%C3%ADnh-ch%E1%BA%A5t-c%E1%BB%A7a-probabilistic-data-structure)
-  - [Bloom Filters](#bloom-filters)
-    - [Cách hoạt động Bloom Filters](#c%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-bloom-filters)
-    - [Hash function trong Bloom Filter](#hash-function-trong-bloom-filter)
-    - [Đánh giá Bloom Filter](#%C4%91%C3%A1nh-gi%C3%A1-bloom-filter)
-  - [Cuckoo Filters](#cuckoo-filters)
-  - [Count Min Sketch](#count-min-sketch)
-  - [HyperLogLog](#hyperloglog)
-  - [Trie](#trie)
-    - [Tổng quát về Trie](#t%E1%BB%95ng-qu%C3%A1t-v%E1%BB%81-trie)
-    - [Đánh giá Trie](#%C4%91%C3%A1nh-gi%C3%A1-trie)
-    - [Ứng dụng của Trie](#%E1%BB%A9ng-d%E1%BB%A5ng-c%E1%BB%A7a-trie)
-  - [Tham khảo](#tham-kh%E1%BA%A3o)
+- [CẤU TRÚC DỮ LIỆU](#C%E1%BA%A4U-TR%C3%9AC-D%E1%BB%AE-LI%E1%BB%86U)
+  - [Tính chất của Probabilistic data structure](#T%C3%ADnh-ch%E1%BA%A5t-c%E1%BB%A7a-Probabilistic-data-structure)
+  - [Bloom Filters](#Bloom-Filters)
+    - [Cách hoạt động Bloom Filters](#C%C3%A1ch-ho%E1%BA%A1t-%C4%91%E1%BB%99ng-Bloom-Filters)
+    - [Hash function trong Bloom Filter](#Hash-function-trong-Bloom-Filter)
+    - [Đánh giá Bloom Filter](#%C4%90%C3%A1nh-gi%C3%A1-Bloom-Filter)
+  - [Cuckoo Filters](#Cuckoo-Filters)
+  - [Count Min Sketch](#Count-Min-Sketch)
+  - [HyperLogLog](#HyperLogLog)
+  - [Trie](#Trie)
+    - [Tổng quát về Trie](#T%E1%BB%95ng-qu%C3%A1t-v%E1%BB%81-Trie)
+    - [Đánh giá Trie](#%C4%90%C3%A1nh-gi%C3%A1-Trie)
+    - [Ứng dụng của Trie](#%E1%BB%A8ng-d%E1%BB%A5ng-c%E1%BB%A7a-Trie)
+  - [Tham khảo](#Tham-kh%E1%BA%A3o)
 
 ## Tính chất của Probabilistic data structure
 

@@ -38,8 +38,7 @@ public class DictionaryUI {
         loadingLabel = new JLabel("Loading ...");
         panelDiaLog.add(loadingLabel);
 
-        trie = new Trie();
-
+//        trie = new Trie();
 
         final JDialog dialog = new JDialog(frame, "Loading", true);
         dialog.getContentPane().add(panelDiaLog);
@@ -49,7 +48,7 @@ public class DictionaryUI {
         new Thread(new Runnable() {
             public void run() {
                 processBar("Loading ");
-                trie.readFile();
+                trie = Trie.read();
                 done = true;
                 dialog.dispose();
             }
@@ -64,7 +63,7 @@ public class DictionaryUI {
             @Override
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
-                wordList.setListData(trie.prefix(wordTxt.getText()).toArray());
+                wordList.setListData(trie.startWith(wordTxt.getText()).toArray());
             }
         });
     }
