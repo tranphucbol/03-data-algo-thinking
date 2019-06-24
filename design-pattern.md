@@ -137,6 +137,47 @@ Dùng `Factory Method` pattern khi:
 - Một class không thể lường trước lớp đối tượng mà nó phải tạo
 - Một class muốn các lớp con của nó chỉ định các đối tượng mà nó tạo ra
 
+### Code Factory Method
+
+```java
+public interface Shape {
+    String getType();
+}
+
+public class Rectangle implements Shape {
+    public String getType() {
+        return "Rectangle";
+    }
+}
+
+public class Circle implements Shape {
+    public String getType() {
+        return "Circle";
+    }
+}
+
+public class ShapeFactory {
+    public static final int RECTANGLE = 1;
+    public static final int CIRCLE = 2;
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(ShapeFactory.class);
+
+    public Shape createShape(int type) {
+        switch (type) {
+            case RECTANGLE:
+                LOGGER.info("Create Rectangle");
+                return new Rectangle();
+            case CIRCLE:
+                LOGGER.info("Create Circle");
+                return new Circle();
+            default:
+                LOGGER.error("This type does not exist!");
+                return null;
+        }
+    }
+}
+```
+
 ## Strategy
 
 <div align="center">
@@ -150,6 +191,38 @@ Dùng `Strategy` pattern khi:
 - Nhiều class liên quan chỉ khác nhau trong behavior của nó. Strategies cung cấp một để cấu hình một class hoặc một trong nhiều behavior.
 - Bạn cần nhiều biến thể khác nhau của một thuật toán.
 - Một class định nghĩa nhiều behavior và chúng xuất hiện dưới dạng câu điều kiện trong các operation của nó. Thay vì sử dụng nhiều câu điều kiện, chuyển các nhánh có điều kiện liên quan vào một Strategy class của riêng nó.
+
+### Code Strategy
+
+```java
+public interface SendMessageStrategy {
+    void send(String message);
+}
+
+public class SMSStrategy implements SendMessageStrategy {
+    public void send(String message) {
+        System.out.println("SMS: " + message);
+    }
+}
+
+public class MailStrategy implements SendMessageStrategy {
+    public void send(String message) {
+        System.out.println("Mail: " + message);
+    }
+}
+
+public class SendMessageContext {
+    private SendMessageStrategy strategy;
+
+    public void setSendMessageStrategy(SendMessageStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void sendMessage(String message) {
+        strategy.send(message);
+    }
+}
+```
 
 ## Dependency Injection
 
@@ -192,4 +265,7 @@ Trong ví dụ trên, tạo ra một interface AbstractDAP vào cho các class D
 ## Reference
 
 - [Factory Method](https://en.wikipedia.org/wiki/Factory_method_pattern)
+- [Builder](https://sourcemaking.com/design_patterns/builder)
 - [Stragety](https://www.journaldev.com/1754/strategy-design-pattern-in-java-example-tutorial)
+- [Stragety](https://sourcemaking.com/design_patterns/strategy)
+- [Dependency Injection](https://www.freecodecamp.org/news/a-quick-intro-to-dependency-injection-what-it-is-and-when-to-use-it-7578c84fa88f/)

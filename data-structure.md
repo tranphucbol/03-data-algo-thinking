@@ -32,6 +32,14 @@ Bloom filter có 2 tác vụ cơ bản: **Thêm** và **Kiểm tra**
 - **Thêm:** khi thêm một phần tử mới trong S vào, dùng k hàm Hash với đầu vào là phần tử mới đó ta sẽ được k vị trí các bit được bật lên trong chuỗi m bit.
 - **Kiểm tra:** Khi kiểm tra một phần tử thì cũng sử dụng k hàm Hash với đầu vào là phần tử có tính ra k vị trí trong mảng. Sau đó kiểm tra xem tất cả các bit đó có giá trị 1 hay không. Chỉ chần phát hiện một vị trí có giá trị là 0 phầ n tử đó chắc chắn không nằm trong danh sách. Còn tất cả các vị trí đều ra giá trị 1 thì **có thể** phần tử đó nằm trong danh sách
 
+Số bit m sẽ được tính theo công thức:
+
+$`m = -\frac{n\ln p}{(\ln2)^2}`$
+
+Số hàm hash k sẽ được tính theo công thức:
+
+$`k = \frac{m}{n}\ln2`$
+
 <div align="center">
     <img src="images/bloom_2.png">
 </div>

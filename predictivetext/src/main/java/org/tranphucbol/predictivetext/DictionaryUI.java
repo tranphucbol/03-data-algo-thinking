@@ -38,8 +38,6 @@ public class DictionaryUI {
         loadingLabel = new JLabel("Loading ...");
         panelDiaLog.add(loadingLabel);
 
-//        trie = new Trie();
-
         final JDialog dialog = new JDialog(frame, "Loading", true);
         dialog.getContentPane().add(panelDiaLog);
         dialog.setUndecorated(true);

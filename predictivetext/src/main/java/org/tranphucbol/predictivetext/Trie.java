@@ -14,7 +14,7 @@ public class Trie implements Dictionary, Suggestion {
 
     private static final Logger logger = LoggerFactory.getLogger(Trie.class);
 
-    private Trie() {
+    public Trie() {
         root = new TrieNode();
         root.label = '#';
     }
@@ -26,10 +26,12 @@ public class Trie implements Dictionary, Suggestion {
     }
 
     public void add(String word) {
+        if(word.equals("phuckity")) {
+            System.out.println("helol");
+        }
         char[] wc = word.toCharArray();
 
         TrieNode next = root;
-        next.flag = true;
         for (int i = 0; i < wc.length; i++) {
             if (wc[i] - 32 > 94 || wc[i] - 32 < 0) {
                 return;
@@ -39,45 +41,34 @@ public class Trie implements Dictionary, Suggestion {
                 next.links[wc[i] - 32] = new TrieNode(wc[i]);
             }
             next = next.links[wc[i] - 32];
-            next.flag = true;
         }
-        next.flag = false;
+        next.flag = true;
     }
 
-    private void getWord(TrieNode node, String s, List<String> results) {
-        if (!node.flag) {
-            results.add(s + node.label);
+    private boolean isLastNode(TrieNode root) {
+        for(int i = 0; i < root.links.length; i++) {
+            if(root.links[i] != null) {
+                return false;
+            }
         }
+        return true;
+    }
+
+    private void  getWord(TrieNode node, String prefix, List<String> results) {
+        if (node.flag) {
+            results.add(prefix + node.label);
+        }
+
+        if(isLastNode(node)) {
+            return;
+        }
+
         for (int i = 0; i < node.links.length; i++) {
             if (node.links[i] != null) {
-                getWord(node.links[i], s + node.label, results);
+                getWord(node.links[i], prefix + node.label, results);
             }
         }
     }
-
-//    public void addFromFile(String folderName) {
-//        File folder = new File(folderName);
-//        processBar("Reading data ");
-//        for (File file : folder.listFiles()) {
-//            try {
-//                FileReader reader = new FileReader(file);
-//                BufferedReader br = new BufferedReader(reader);
-//
-//                // read line by line
-//                String line;
-//                while ((line = br.readLine()) != null) {
-//                    line = line.replaceAll("<Blog>|</Blog>|<post>|</post>|<date>|</date>|&", "").trim();
-//                    String[] words = line.split(" *[.,\\-:;?(){}\\[\\]\"\n\t\r! ]+ *| +");
-//                    for (String w : words) {
-//                        this.add(w);
-//                    }
-//                }
-//            } catch (IOException e) {
-//                System.err.format("IOException: %s%n", e);
-//            }
-//        }
-//        done = true;
-//    }
 
     public void addFromFile(String folderName, FileUtils reader) {
         File folder = new File(folderName);
@@ -94,7 +85,6 @@ public class Trie implements Dictionary, Suggestion {
         }
         done = true;
     }
-
 
     private void writeTrieNode(TrieNode node, DataOutputStream out) throws IOException {
         out.writeByte(node.label);
@@ -150,35 +140,6 @@ public class Trie implements Dictionary, Suggestion {
         }
     }
 
-//    private void processBar(final String message) {
-//        done = false;
-//        new Thread(new Runnable() {
-//            public void run() {
-//                int count = 0;
-//                int maxCount = 3;
-//                while (!done) {
-//                    try {
-//                        Thread.sleep(500);
-//                        StringBuffer buffer = new StringBuffer(message);
-//
-//                        if (count == maxCount)
-//                            count = 0;
-//                        else count++;
-//
-//                        for (int i = 0; i < count; i++) {
-//                            buffer.append('.');
-//                        }
-//
-//                        System.out.print(buffer.toString() + "\r");
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                System.out.println("\nDone!");
-//            }
-//        }).start();
-//    }
-
     public boolean contains(String word) {
         char[] wc = word.toCharArray();
 
@@ -189,28 +150,28 @@ public class Trie implements Dictionary, Suggestion {
             }
             next = next.links[wc[i] - 32];
         }
-        return true;
+        return (next != null && next.flag);
     }
 
-    public List<String> startWith(String word) {
+    public List<String> startWith(String prefix) {
         List<String> results = new ArrayList<String>();
 
-        if (word == null || word.equals("")) {
+        if (prefix == null || prefix.equals("")) {
             return Collections.EMPTY_LIST;
         }
 
-        char[] wc = word.toCharArray();
-
         TrieNode next = root;
 
-        for (int i = 0; i < wc.length; i++) {
-            if (next.links[wc[i] - 32] == null) {
-                return results;
+        char[] wc = prefix.toCharArray();
+
+        for(int i=0; i<wc.length; i++) {
+            if(next.links[wc[i] - 32] == null) {
+                return Collections.EMPTY_LIST;
             }
             next = next.links[wc[i] - 32];
         }
 
-        getWord(next, word.substring(0, word.length() - 1), results);
+        getWord(next, prefix.substring(0, prefix.length() - 1), results);
         return results;
     }
 

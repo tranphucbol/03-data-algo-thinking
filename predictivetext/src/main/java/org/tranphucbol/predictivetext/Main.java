@@ -15,10 +15,10 @@ public class Main {
 ////                .setWrite(true)
 ////                .build();
 //
-//        new DictionaryUI();
-
-        BloomFilter bloomFilter = new BloomFilter(1000000, 3);
-        bloomFilter.addFromFile("/home/cpu11413/Documents/blogs", new BlogFile());
+        new DictionaryUI();
+//
+//        BloomFilter bloomFilter = new BloomFilter(1000000);
+//        bloomFilter.addFromFile("/home/cpu11413/Documents/blogs", new BlogFile());
     }
 
 
