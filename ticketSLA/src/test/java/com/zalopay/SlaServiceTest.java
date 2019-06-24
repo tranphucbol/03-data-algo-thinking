@@ -82,7 +82,6 @@ public class SlaServiceTest {
     public void calculate(LocalDateTime start, LocalDateTime end, Duration expectedResult) {
         // WHEN
         Duration duration = slaService.calculate(start, end);
-//        System.out.println(duration.toMinutes());
 
         // THEN
         MatcherAssert.assertThat(duration, Is.is(expectedResult));

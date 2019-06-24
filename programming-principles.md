@@ -92,6 +92,10 @@ Có thể thấy rằng method 1 nhanh hơn method 2 do nó thực hiện trực
 
 YAGNI là **Y**ou **A**ren't **G**onna **N**eed **I**t. Nguyên tắc này nghĩa là bạn không code quá phức tạp nếu không cần thiết. Không nhất thiết lúc nào cũng dùng những desgin pattern. Bạn không cần code những chức năng mà dựa đó là nó có thể xảy ra, nó có thể xảy ra mà hiện tại không dùng nó và nó có thể không bao giờ xảy ra. Bạn chỉ cần làm những việc cần thiết nhất cho ứng dụng chứ không cần phải phức tạp cho nó. Dẫn đến nhưng vấn đề cho maintain code.
 
+## Do the simplest thing that could possibly work
+
+Luôn giữ mọi thứ đơn giản nhất, để có thể làm việc. Mục tiêu là luôn nghĩ ra những solution đơn giản nhất có thể để vấn đề có thể giải quyết gọn gàng.
+
 ## Tham khảo
 
 - [SOLID](https://viblo.asia/p/solid-la-gi-ap-dung-cac-nguyen-ly-solid-trong-thiet-ke-maGK7WELKj2)
