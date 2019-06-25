@@ -96,6 +96,16 @@ YAGNI là **Y**ou **A**ren't **G**onna **N**eed **I**t. Nguyên tắc này nghĩ
 
 Luôn giữ mọi thứ đơn giản nhất, để có thể làm việc. Mục tiêu là luôn nghĩ ra những solution đơn giản nhất có thể để vấn đề có thể giải quyết gọn gàng.
 
+## Clean Code
+
+Clean code là code không bị dơ.
+
+- Tên hàm có ý nghĩa đọc vào biết ngay làm gì
+- Mỗi hàm làm nôt chức năng riêng, giúp cho việc đọc code dễ hiểu, không cần viết document rườm rà
+- Không return null, để không kiểm tra null ở mỗi lần sử dụng hàm, chỉ return null khi hàm thực sự cần thiết
+- Viết code làm sao không cần nhiều comment vẫn hiểu được code, tên hàm, tên biến phải theo convention.
+- Phân phối lượng code trong mỗi dòng, mỗi hàm ở lượng nhất định không quá dài, gây khó khăn cho việc hiểu và đọc code.
+
 ## Tham khảo
 
 - [SOLID](https://viblo.asia/p/solid-la-gi-ap-dung-cac-nguyen-ly-solid-trong-thiet-ke-maGK7WELKj2)

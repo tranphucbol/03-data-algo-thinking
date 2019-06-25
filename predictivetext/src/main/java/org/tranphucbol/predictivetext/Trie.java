@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Trie implements Dictionary, Suggestion {
     private TrieNode root;
-    private boolean done = false;
 
     private static final Logger logger = LoggerFactory.getLogger(Trie.class);
 
@@ -26,9 +25,6 @@ public class Trie implements Dictionary, Suggestion {
     }
 
     public void add(String word) {
-        if(word.equals("phuckity")) {
-            System.out.println("helol");
-        }
         char[] wc = word.toCharArray();
 
         TrieNode next = root;
@@ -83,7 +79,6 @@ public class Trie implements Dictionary, Suggestion {
                 e.printStackTrace();
             }
         }
-        done = true;
     }
 
     private void writeTrieNode(TrieNode node, DataOutputStream out) throws IOException {
@@ -115,7 +110,6 @@ public class Trie implements Dictionary, Suggestion {
             DataInputStream in = new DataInputStream(new FileInputStream("Trie"));
             root = readTrieNode(in);
             in.close();
-            done = true;
             logger.info("done");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -124,13 +118,12 @@ public class Trie implements Dictionary, Suggestion {
         }
     }
 
-    public void writeTrie() {
+    public void writeFile() {
         try {
             logger.info("writing file");
             DataOutputStream out = new DataOutputStream(new
                     FileOutputStream("Trie"));
             writeTrieNode(root, out);
-            done = true;
             logger.info("done");
             out.close();
         } catch (FileNotFoundException e) {

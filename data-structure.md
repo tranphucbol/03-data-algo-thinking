@@ -27,11 +27,6 @@ Cấu trúc dữ liệu xác xuất là một nhóm cấu trúc dữ liệu cự
 
 Bản chất của bloom filter là một vector các bit. Một bloom filter rỗng là một vector các bit có giá trị là 0. Nó cần k hàm hash để map một cách ngẫu nhiên và đồng đều các phần tử vào mảng bit. Sống lượng hàm hash và độ dài của vector bit sẽ ảnh hưởng đến độ chính xác của kết quả.
 
-Bloom filter có 2 tác vụ cơ bản: **Thêm** và **Kiểm tra**
-
-- **Thêm:** khi thêm một phần tử mới trong S vào, dùng k hàm Hash với đầu vào là phần tử mới đó ta sẽ được k vị trí các bit được bật lên trong chuỗi m bit.
-- **Kiểm tra:** Khi kiểm tra một phần tử thì cũng sử dụng k hàm Hash với đầu vào là phần tử có tính ra k vị trí trong mảng. Sau đó kiểm tra xem tất cả các bit đó có giá trị 1 hay không. Chỉ chần phát hiện một vị trí có giá trị là 0 phầ n tử đó chắc chắn không nằm trong danh sách. Còn tất cả các vị trí đều ra giá trị 1 thì **có thể** phần tử đó nằm trong danh sách
-
 Số bit m sẽ được tính theo công thức:
 
 $`m = -\frac{n\ln p}{(\ln2)^2}`$
@@ -39,6 +34,11 @@ $`m = -\frac{n\ln p}{(\ln2)^2}`$
 Số hàm hash k sẽ được tính theo công thức:
 
 $`k = \frac{m}{n}\ln2`$
+
+Bloom filter có 2 tác vụ cơ bản: **Thêm** và **Kiểm tra**
+
+- **Thêm:** khi thêm một phần tử mới trong S vào, dùng k hàm Hash với đầu vào là phần tử mới đó ta sẽ được k vị trí các bit được bật lên trong chuỗi m bit.
+- **Kiểm tra:** Khi kiểm tra một phần tử thì cũng sử dụng k hàm Hash với đầu vào là phần tử có tính ra k vị trí trong mảng. Sau đó kiểm tra xem tất cả các bit đó có giá trị 1 hay không. Chỉ chần phát hiện một vị trí có giá trị là 0 phầ n tử đó chắc chắn không nằm trong danh sách. Còn tất cả các vị trí đều ra giá trị 1 thì **có thể** phần tử đó nằm trong danh sách
 
 <div align="center">
     <img src="images/bloom_2.png">
@@ -58,7 +58,7 @@ Việc false positive sẽ càng tăng nếu kích thước *m* (độ dài bita
 
 ## Cuckoo Filters
 
-`Cuckoo Filters` hoạt động bằng cách hasing một mục nhập với một hàm hash và  chền f-bit fingerprint cảu mục nhập vào một vị trí mở trong một trong hai bucket thay thế. Khi cả hai buckets đầy, filter đệ  quy các mục hiện có vào các thùng thay thế của chúng cho đến khi space được tìm thấy hoặc các nỗ lực đã hết. Tra cứu lặp lại hash function và kiểm tra cả hai bucket cho fingerprint. Khi không tìm thấy fingerprint phù hợp, mục nhập chắc chắn không có trong bộ lọc. Khi tìm thấy fingerprint phù hợp trong một trong hai bucket, mục nhập có thể nằm trong bộ lọc.
+`Cuckoo Filters` hoạt động bằng cách hasing một mục nhập với một hàm hash và  chềr n f-bit fingerprint của mục nhập vào một vị trí mở trong một trong hai bucket thay thế. Khi cả hai buckets đầy, filter đệ  quy các mục hiện có vào các thùng thay thế của chúng cho đến khi space được tìm thấy hoặc các nỗ lực đã hết. Tra cứu lặp lại hash function và kiểm tra cả hai bucket cho fingerprint. Khi không tìm thấy fingerprint phù hợp, mục nhập chắc chắn không có trong bộ lọc. Khi tìm thấy fingerprint phù hợp trong một trong hai bucket, mục nhập có thể nằm trong bộ lọc.
 
 Fingerprint là một chuỗi bit có kích thước cố định sinh ra từ mỗi phần tử đầu vào bằng cách băm chính phần tử nhập vào.
 
@@ -85,7 +85,7 @@ False positive xảy ra khi một mục nhập khác thêm fingerprint vào mộ
 
 ## Count Min Sketch
 
-Cấu trúc bên trong của Count-Min Sketch là một bảng, tương tựng như một Hash Table. Tuy nhiên, trong khiu Hash Table dùng một hàm hash, Count Min Sketches dùng nhiều hàm hash, cho mỗi cột. Ban đầu, mỗi ô trong Count-Min Sketches được khởi tạo là 0. Khi có một event xảy ra, ID của event sẽ được hash qua mỗi cột. Mỗi hàm hash sẽ cho ra giá trị là một dòng trong bảng, và tăng ô tại (dòng, cột) đó lên một. Khi truy vấn số lượng, ta sẽ hash để lấy ra vị trí của 3 ô và sẽ lấy giá trị nhỏ nhất trong 3 ô.
+Cấu trúc bên trong của Count-Min Sketch là một bảng, tương tựng như một Hash Table. Tuy nhiên, trong khi Hash Table dùng một hàm hash, Count Min Sketches dùng nhiều hàm hash, cho mỗi cột. Ban đầu, mỗi ô trong Count-Min Sketches được khởi tạo là 0. Khi có một event xảy ra, ID của event sẽ được hash qua mỗi cột. Mỗi hàm hash sẽ cho ra giá trị là một dòng trong bảng, và tăng ô tại (dòng, cột) đó lên một. Khi truy vấn số lượng, ta sẽ hash để lấy ra vị trí của 3 ô và sẽ lấy giá trị nhỏ nhất trong 3 ô.
 
 <div align="center">
   <img src="images/count-min-sketches.png">
