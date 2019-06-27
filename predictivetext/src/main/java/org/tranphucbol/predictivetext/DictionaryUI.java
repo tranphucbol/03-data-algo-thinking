@@ -1,11 +1,15 @@
 package org.tranphucbol.predictivetext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -21,6 +25,8 @@ public class DictionaryUI {
 
     private JPanel panelDiaLog;
     private JLabel loadingLabel;
+
+    private static final Logger logger = LoggerFactory.getLogger(DictionaryUI.class);
 
     public DictionaryUI() {
         frame = new JFrame("Dictionary");
@@ -46,7 +52,13 @@ public class DictionaryUI {
         new Thread(new Runnable() {
             public void run() {
                 processBar("Loading ");
-                trie = Trie.read();
+                try {
+                    trie = Trie.read();
+                } catch (IOException e) {
+                    logger.error("File Trie doesn't exist");
+                    trie = new Trie("/home/cpu11413/Documents/blogs", new BlogFile());
+                    trie.writeFile();
+                }
                 done = true;
                 dialog.dispose();
             }

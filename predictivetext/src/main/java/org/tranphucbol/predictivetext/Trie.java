@@ -42,20 +42,20 @@ public class Trie implements Dictionary, Suggestion {
     }
 
     private boolean isLastNode(TrieNode root) {
-        for(int i = 0; i < root.links.length; i++) {
-            if(root.links[i] != null) {
+        for (int i = 0; i < root.links.length; i++) {
+            if (root.links[i] != null) {
                 return false;
             }
         }
         return true;
     }
 
-    private void  getWord(TrieNode node, String prefix, List<String> results) {
+    private void getWord(TrieNode node, String prefix, List<String> results) {
         if (node.flag) {
             results.add(prefix + node.label);
         }
 
-        if(isLastNode(node)) {
+        if (isLastNode(node)) {
             return;
         }
 
@@ -104,18 +104,12 @@ public class Trie implements Dictionary, Suggestion {
         return node;
     }
 
-    private void readFile() {
-        try {
-            logger.info("reading file");
-            DataInputStream in = new DataInputStream(new FileInputStream("Trie"));
-            root = readTrieNode(in);
-            in.close();
-            logger.info("done");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void readFile() throws IOException {
+        logger.info("reading file");
+        DataInputStream in = new DataInputStream(new FileInputStream("Trie"));
+        root = readTrieNode(in);
+        in.close();
+        logger.info("done");
     }
 
     public void writeFile() {
@@ -157,8 +151,8 @@ public class Trie implements Dictionary, Suggestion {
 
         char[] wc = prefix.toCharArray();
 
-        for(int i=0; i<wc.length; i++) {
-            if(next.links[wc[i] - 32] == null) {
+        for (int i = 0; i < wc.length; i++) {
+            if (next.links[wc[i] - 32] == null) {
                 return Collections.EMPTY_LIST;
             }
             next = next.links[wc[i] - 32];
@@ -168,7 +162,7 @@ public class Trie implements Dictionary, Suggestion {
         return results;
     }
 
-    public static Trie read() {
+    public static Trie read() throws IOException {
         Trie trie = new Trie();
         trie.readFile();
         return trie;
