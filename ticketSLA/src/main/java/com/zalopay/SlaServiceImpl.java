@@ -38,6 +38,9 @@ public class SlaServiceImpl implements SlaService {
         else if (timeBegin.compareTo(timeEndMor) > 0 && timeBegin.compareTo(timeBeginAft) < 0) {
             //reset to 13h30
             begin = LocalDateTime.of(begin.toLocalDate(), timeBeginAft);
+        } else if(timeBegin.compareTo(timeEndAft) > 0) {
+            //reset to 8h30 tomorrow
+            begin = LocalDateTime.of(begin.toLocalDate().plusDays(1), timeBeginMor);
         }
 
         if(begin.getDayOfWeek().compareTo(DayOfWeek.SATURDAY) == 0) {

@@ -68,6 +68,11 @@ public class SlaServiceTest {
                         LocalDateTime.of(2019, 5, 6, 15, 30),
                         Duration.ofMinutes(5 * 60 +  30) // 13h30m
                 },
+                {
+                        LocalDateTime.of(2019, 4, 30, 19, 30),
+                        LocalDateTime.of(2019, 5, 1, 9, 30),
+                        Duration.ofMinutes(60) // 1h
+                }
         };
     }
 
