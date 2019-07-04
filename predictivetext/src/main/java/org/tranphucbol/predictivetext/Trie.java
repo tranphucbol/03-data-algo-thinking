@@ -12,16 +12,41 @@ public class Trie implements Dictionary, Suggestion {
     private TrieNode root;
 
     private static final Logger logger = LoggerFactory.getLogger(Trie.class);
+    private static Trie INSTANCE = null;
 
-    public Trie() {
+    private Trie() {
         root = new TrieNode();
         root.label = '#';
     }
 
-    public Trie(String folderName, FileUtils reader) {
+    private Trie(String folderName, FileUtils reader) {
         root = new TrieNode();
         root.label = '#';
         this.addFromFile(folderName, reader);
+    }
+
+    public static Trie getInstance(String folderName, FileUtils reader) {
+        if(INSTANCE == null) {
+            synchronized (Trie.class) {
+                if(INSTANCE == null) {
+                    INSTANCE = new Trie(folderName, reader);
+                }
+            }
+        }
+
+        return INSTANCE;
+    }
+
+    public static Trie getInstance() {
+        if(INSTANCE == null) {
+            synchronized (Trie.class) {
+                if(INSTANCE == null) {
+                    INSTANCE = new Trie();
+                }
+            }
+        }
+
+        return INSTANCE;
     }
 
     public void add(String word) {

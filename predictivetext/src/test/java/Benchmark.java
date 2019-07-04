@@ -27,11 +27,10 @@ public class Benchmark {
 
     @BeforeClass
     public void init() throws IOException {
-        String folderName = "/home/cpu11413/Documents/blogs";
-        bloomFilter = new BloomFilter(1000000);
-        bloomFilter.addFromFile(folderName, reader);
+        bloomFilter = new BloomFilter(5000000);
+        bloomFilter.readFile();
 
-        trie = new Trie(folderName, reader);
+        trie = Trie.read();
     }
 
     @Test(dataProvider = "testCase")
